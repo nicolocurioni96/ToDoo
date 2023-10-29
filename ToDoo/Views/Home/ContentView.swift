@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  ToDoo
 //
 //  Created by Nicolò Curioni on 08/10/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct HomeView: View {
     @Query private var todoItems: [TodoItem]
     @State private var showAddNewItem = false
     
@@ -69,5 +69,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }

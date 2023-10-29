@@ -82,6 +82,22 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		A17DE0412AEF121400292D6B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A1A8319A2AE7199F00F418C9 /* ContentView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A17DE0422AEF127900292D6B /* Operation (Add & Edit) */ = {
+			isa = PBXGroup;
+			children = (
+				A1A831992AE7199F00F418C9 /* AddItemView.swift */,
+			);
+			path = "Operation (Add & Edit)";
+			sourceTree = "<group>";
+		};
 		A1A831952AE7197D00F418C9 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,9 +117,9 @@
 		A1A8319D2AE719A300F418C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A1A8319A2AE7199F00F418C9 /* ContentView.swift */,
+				A17DE0412AEF121400292D6B /* Home */,
 				A17DE03C2AEF0B7A00292D6B /* Detail */,
-				A1A831992AE7199F00F418C9 /* AddItemView.swift */,
+				A17DE0422AEF127900292D6B /* Operation (Add & Edit) */,
 			);
 			path = Views;
 			sourceTree = "<group>";
