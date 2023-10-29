@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Query private var todoItems: [TodoItem]
-    @State private var showAddNewtem = false
+    @State private var showAddNewItem = false
     
     var body: some View {
         ZStack {
@@ -23,14 +23,14 @@ struct ContentView: View {
                             .bold()
                         
                         Button(action: {
-                            showAddNewtem = true
+                            showAddNewItem = true
                         }, label: {
                             Image(systemName: "plus.circle.fill")
                                 .font(.title2)
                                 .fontWeight(.black)
                                 .foregroundStyle(Color.blue)
                         })
-                        .sheet(isPresented: $showAddNewtem) {
+                        .sheet(isPresented: $showAddNewItem) {
                             AddItemView()
                         }
                     }
@@ -38,21 +38,26 @@ struct ContentView: View {
                 } else {
                     List {
                         ForEach(todoItems, id: \.self) { todoItem in
-                            Text(todoItem.name)
+                            NavigationLink {
+                                DetailView(todoItem: todoItem)
+                            } label: {
+                                Text(todoItem.name)
+                            }
+
                         }
                     }
                     .navigationTitle("ToDoo")
                     .toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
                             Button(action: {
-                                showAddNewtem = true
+                                showAddNewItem = true
                             }, label: {
                                 Image(systemName: "plus.circle.fill")
                                     .font(.title2)
                                     .fontWeight(.black)
                                     .foregroundStyle(Color.blue)
                             })
-                            .sheet(isPresented: $showAddNewtem) {
+                            .sheet(isPresented: $showAddNewItem) {
                                 AddItemView()
                             }
                         }

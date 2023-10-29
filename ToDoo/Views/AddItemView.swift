@@ -12,6 +12,7 @@ struct AddItemView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var name = ""
+    @State var todoItem: TodoItem? = nil
     
     var body: some View {
         NavigationStack {
@@ -33,10 +34,8 @@ struct AddItemView: View {
                 
                 ToolbarItem(placement: .bottomBar) {
                     Button {
-                        if !name.isEmpty {
-                            let todoItem = TodoItem(name: name, isChecked: false, creationDate: Date())
-                            modelContext.insert(todoItem)
-                            
+                        withAnimation {
+                            saveItem()
                             dismiss()
                         }
                     } label: {
@@ -48,6 +47,25 @@ struct AddItemView: View {
                     .buttonStyle(.borderedProminent)
                     .disabled(name.isEmpty)
                 }
+            }
+        }
+        .onAppear {
+            if let todoItem {
+                name = todoItem.name
+            }
+        }
+    }
+    
+    // MARK: - Private methods
+    private func saveItem() {
+        if !name.isEmpty {
+            if let todoItem {
+                // Edit the TODO Item
+                todoItem.name = name
+            } else {
+                // Add a TODO Item
+                let todoItem = TodoItem(name: name, isChecked: false, creationDate: Date())
+                modelContext.insert(todoItem)
             }
         }
     }
