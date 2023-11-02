@@ -6,30 +6,33 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DetailView: View {
-    @State var todoItem: TodoItem?
+    @State var todoItem: TodoItem
     @State private var canUpdateItem = false
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
             NavigationStack {
                 Form {
                     Section {
-                        Text(todoItem?.name ?? "")
+                        Text(todoItem.name)
                             .font(.headline)
                             .fontWeight(.medium)
                     }
                     
                     Section {
-                        Text(DateFormatter.localizedString(from: todoItem?.creationDate ?? Date(), dateStyle: .medium, timeStyle: .medium))
+                        Text(DateFormatter.localizedString(from: todoItem.creationDate, dateStyle: .medium, timeStyle: .medium))
                             .font(.headline)
                             .fontWeight(.medium)
                     }
                 }
-                .navigationTitle(todoItem?.name ?? "")
+                .navigationTitle(todoItem.name)
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
                         Button(action: {
                             canUpdateItem = true
                         }, label: {
@@ -41,13 +44,29 @@ struct DetailView: View {
                         .sheet(isPresented: $canUpdateItem) {
                             AddItemView(todoItem: todoItem)
                         }
+                        
+                        Button(action: {
+                            delete(todoItem)
+                        }, label: {
+                            Image(systemName: "trash.circle.fill")
+                                .font(.title2)
+                                .fontWeight(.black)
+                                .foregroundStyle(Color.red)
+                        })
                     }
                 }
             }
         }
     }
+    
+    // MARK: - Private methods
+    private func delete(_ item: TodoItem) {
+        modelContext.delete(item)
+        
+        dismiss()
+    }
 }
 
 #Preview {
-    DetailView()
+    DetailView(todoItem: .init(name: "Test", isChecked: false, creationDate: Date()))
 }

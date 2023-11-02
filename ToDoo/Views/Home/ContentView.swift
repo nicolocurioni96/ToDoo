@@ -11,6 +11,7 @@ import SwiftData
 struct HomeView: View {
     @Query private var todoItems: [TodoItem]
     @State private var showAddNewItem = false
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         ZStack {
@@ -42,8 +43,12 @@ struct HomeView: View {
                                 DetailView(todoItem: todoItem)
                             } label: {
                                 Text(todoItem.name)
+                                    .swipeActions {
+                                        Button("Delete", systemImage: "trash", role: .destructive) {
+                                            self.modelContext.delete(todoItem)
+                                        }
+                                    }
                             }
-
                         }
                     }
                     .navigationTitle("ToDoo")
