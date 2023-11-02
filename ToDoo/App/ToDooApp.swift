@@ -12,7 +12,7 @@ import SwiftData
 struct ToDooApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
         .modelContainer(for: TodoItem.self)
     }
